@@ -1,0 +1,7 @@
+.box, 
+ul {
+  border: 2px solid rgb(20, 20, 20);
+  padding: .5em;
+  width: 500px;
+  height: 300px;
+}

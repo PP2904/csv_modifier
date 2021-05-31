@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="converterFunc.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Get rid of the "bad" values</title>
+  </head>
+  <body>
+    <h1>CSV file converter</h1>
+    <p>Please specify the delimeter your CSV file is using: </p>
+    <!-- user can specifiy the delimeter his csv is using -->
+    <input id="delimInput"></input>
+    <p>Please upload your CSV file: </p> 
+    <form id="uploadForm">
+      <input onchange="loadFile()" type="file" id="fileUpload" accept=".csv">
+      <p id="uploadMessage"></p>
+      <br>
+    </form>
+
+    <form>
+      <!-- display file in a textbox -->
+      <p>Your uploaded file: </p>
+      <p class = "box" style="overflow-y:auto;" id="inputFile"></p>
+    </form>
+
+    <form>
+      <p>The converted file: </p>
+      <p class="box" style="overflow-y:auto;" id="inputFile"></p>
+    </form>
+
+
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#attr-accept -->
+   
+   
+   
+  
+
+
+  </body>
+</html>
