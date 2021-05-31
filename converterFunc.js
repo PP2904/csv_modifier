@@ -68,17 +68,33 @@ function writeToArray(csv) {
         var content = allData[i].split(delimiter);
             var arrTemp = [];
                 for (var j=0; j<content.length; j++) {
-                    //hier muss aus strings ints gemacht werden
-                    //pro 1 Zeile csv inhalt = 1 array index inhalt
-                    arrTemp.push(parseInt(content[j]));
+                    //does not want to create another array, therefore solved without filter method
+                    //get rid of the NaNs 
+                    if(Number.isInteger(parseInt(content[j]))){
+                        //convert strings to ints & add to temporary array
+                        arrTemp.push(parseInt(content[j]));
+                    }
+                    else{
+                        break;
+                    }
                 }
         //glue together final (outer) array
         arrFinal.push(arrTemp);
+
+        //TODO: get rid of arrays with length zero
+        // for (var j=0; j<arrFinal.length; j++) {
+        //     if(arrFinal[j].length == 0){
+        //         arrFinal.splice(1,j);
+        //     }
+        // }        
+
+
+
     }
   
     console.log(allData);
-    //console.log(arrTemp[1]);
-    //console.log(arrFinal[1]); -- undefined
+    //console.log(arrTemp);
+    //console.log(arrFinal[1]);
     console.log(arrFinal);
 
     console.log(delimiter);
@@ -94,8 +110,42 @@ function writeToArray(csv) {
 
     //escape tool: https://www.freeformatter.com/javascript-escape.html#ad-output
 
+
+    interPolate(arrFinal);
+
 }
 
+
+
+
+function interPolate(arr){
+
+    //var arrNew = [...arr].map(x => x == 0 ? 9999 : x);
+
+    //what interpolation should be used? 
+
+    for (var i=0; i<arr.length; i++) {
+        for (var j=0; j<arr[j].length; j++) {
+            if(arr[i][j] == 0){
+                arr[i][j] = 9999;
+            }
+            else{
+                arr[i][j] = arr[i][j];
+            }
+        }
+
+    }
+
+
+
+    console.log(arr);
+    
+    //arr.join("<b/>");
+
+    document.getElementById("outputFile").innerHTML = arr;
+
+
+}
 
 
 
