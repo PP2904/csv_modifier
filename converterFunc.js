@@ -53,6 +53,11 @@ function writeToArray(csv) {
     var delimiter = document.getElementById('delimInput').value;
 
 
+
+    //TODO: need a case to handle floating point numbers with blanks as delimiter 
+    //(both MacOS and DOS csv file types from excel)
+
+
     //for blank delimiter we need to split csv string at new line (check png file attached in folder)
     if (delimiter == ' ') {
         var allData = csv.split(/\n/);
@@ -112,19 +117,34 @@ function writeToArray(csv) {
 
 
 
-
+//interpolation 
 function interPolate(arr) {
-    //TODO: what interpolation should be used? 
-
     for (var i = 0; i < arr.length; i++) {
         for (var j = 0; j < arr[j].length; j++) {
             if (arr[i][j] == 0) {
-                arr[i][j] = 9999;
+                //we are currently at one of the marginal values
+                if (j == 0){
+                    arr[i][j] = arr[i][j+1] + arr[i][j+2];
+                    break;
+                }
+                //we are currently at one of the marginal values
+                if(j == (arr[j].length - 1)){
+                    arr[i][j] = arr[i][j-1] + arr[i][j-2];
+                    break;
+                }
+
+                if( arr[i][j-1] == 0 && arr[i][j+1] == 0){
+                    if(arr[i][j-1] == 0){
+                        //edge case, therefore lazy approach :) 
+                        arr[i][j] = 999;
+                    }
+                    break;
+                }
+
+                //none of the two values is zero or a marginal value (left, right)
+                arr[i][j] = arr[i][j-1] + arr[i][j+1];
             }
 
-            else {
-                arr[i][j] = arr[i][j];
-            }
         }
 
     }
@@ -142,7 +162,9 @@ function interPolate(arr) {
 
 
 
-//write back to csv input type:  1) same delimiter 2) same data (= same number of datapoints) 3) no zero values
+
+
+//TODO: write back to csv input type:  0) same data typ = string??? 1) same delimiter 2) same data (= same number of datapoints) 3) no zero values
 function writeToCsv() {
 
 }
